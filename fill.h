@@ -10,10 +10,9 @@
 #define MAX_FILL_SEGMENTS 100
 #define FRAME_DELAY_MS 1
 
-void FillAnimation_Aux(CRGB *leds, int num_leds, int num_segments, CRGB c1, CRGB c2) {
-  int segment_size = num_leds / num_segments;
+void FillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1, CRGB c2) {
   int i;
-  
+
   for (i = 0; i < num_leds; i++) {
     leds[i] = c1;
   }
@@ -25,7 +24,7 @@ void FillAnimation_Aux(CRGB *leds, int num_leds, int num_segments, CRGB c1, CRGB
       FastLED.delay(FRAME_DELAY_MS);
     }
   }
-  
+
   for (i = num_leds; i >= 0; i--) {
     leds[i] = c1;
     if (i % segment_size == 0 || i == num_leds - 1) {
@@ -35,10 +34,28 @@ void FillAnimation_Aux(CRGB *leds, int num_leds, int num_segments, CRGB c1, CRGB
   }
 }
 
-void FillAnimation(CRGB *leds, int num_leds) {
-  LOG("Running Fill...");
-  LOG("\tnum_leds = %d", num_leds);
+void CenterFillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1, CRGB c2) {
+  int i, j;
+  int center = num_leds / 2;
   
+  for (i = 0; i < center; i += segment_size) {
+    for (j = 0; j < num_leds; j++) {
+      leds[j] = (abs(center - j) < = i) ? c1 : c2;
+    }
+    FastLED.show();
+    FastLED.delay(FRAME_DELAY_MS);
+  }
+  
+  for (i = center - 1; i >= 0; i -= segment_size {
+    for (j = 0; j < num_leds; j++) {
+      leds[j] = (abs(center - j) <= i) ? c1 : c2;
+    }
+    FastLED.show();
+    FastLED.delay(FRAME_DELAY_MS);
+  }
+}
+
+void FillAnimation(CRGB *leds, int num_leds, bool center_fill) {
   CRGB c1, c2;
   fillRandomContrastingColors(c1, c2);
 
@@ -47,58 +64,34 @@ void FillAnimation(CRGB *leds, int num_leds) {
   // a time.
   int num_segments = random(MIN_FILL_SEGMENTS, MAX_FILL_SEGMENTS);
   LOG("\tnum_segments = %d", num_segments);
+  int segment_size = num_leds / num_segments;
+  LOG("\tsegment_size = %d", segment_size);
 
+  // Select a random number of animation loops to complete
   int num_fills = random(MIN_FILLS, MAX_FILLS);
   LOG("\tnum_fills = %d", num_fills);  
   
   for (int i = 0; i < num_fills; i++) {
     LOG("\tFill #%d", i);
-    FillAnimation_Aux(leds, num_leds, num_segments, c1, c2);
-  }
-}
-
-
-
-/*
-
-void FillFromCenterAnimation_Aux(PixelWrapper *px, uint32_t c1, uint32_t c2) {
-  uint16_t n = px->numPixels();
-  int i, j;
-  int center = n / 2;
-  
-  for (i = 0; i < center; i++) {
-    for (j = 0; j < n; j++) {
-      if (abs(center - j) <= i) {
-        px->setPixelColor(j, c1);
-      } else {
-        px->setPixelColor(j, c2); 
-      }
+    if (center_fill) {
+      // Note: We use a 1/2 segment size for Centerfill since it fills in
+      // two directions at once, resulting in the animation completing 2x
+      // faster that expected.  By halving it here we counteract that effect.
+      CenterFillAnimation_Aux(leds, num_leds, segment_size / 2, c1, c2);
+    } else {
+      FillAnimation_Aux(leds, num_leds, segment_size, c1, c2);
     }
-    px->show();
-    delay(FRAME_DELAY_MS);
-  }
-  
-  for (i = center - 1; i >= 0; i--) {
-    for (j = 0; j < n; j++) {
-      if (abs(center - j) <= i) {
-        px->setPixelColor(j, c1);
-      } else {
-        px->setPixelColor(j, c2); 
-      }
-    }
-    px->show();
-    delay(FRAME_DELAY_MS);
   }
 }
 
-void FillFromCenterAnimation(PixelWrapper *px) {
-  uint32_t color1 = randomColor(px);
-  uint32_t color2 = randomColor(px);
-
-  for (uint8_t i = 0; i < NUM_FILLS; i++) {
-    FillFromCenterAnimation_Aux(px, color1, color2);
-  }
+void FillAnimation(CRGB *leds, int num_leds) {
+  LOG("Running Fill...");
+  FillAnimation(leds, num_leds, false);
 }
-*/
 
-#endif //FILL_H
+void CenterFillAnimation(CRGB *leds, int num_leds) {
+  LOG("Running CenterFill...");
+  FillAnimation(leds, num_leds, true);
+}
+
+#endif // FILL_H

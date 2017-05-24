@@ -11,7 +11,6 @@
 
 void BlockifyAnimation(CRGB *leds, int num_leds) {
   LOG("Running Blockify...");
-  LOG("\tnum_leds = %d", num_leds);
   
   uint8_t num_blocks = MIN_BLOCKS + rand() % (MAX_BLOCKS - MIN_BLOCKS);
   LOG("\tnum_blocks = %d", num_blocks);

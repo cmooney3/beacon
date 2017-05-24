@@ -67,7 +67,14 @@ void setup() {
   FastLED.setBrightness(brightnesses[brightness]);
 }
 
+typedef void (*Animation)(CRGB*, int);
+Animation animaions[] = {&FillAnimation,
+                         &CenterFillAnimation,
+                         &BlockifyAnimation}
+int num_animations = sizeof(animations) / sizeof(animations[0]);
+
 void loop() {
-  FillAnimation(leds, NUM_LEDS);
-  BlockifyAnimation(leds, NUM_LEDS);
+  for (int i = 0; i < num_animations; i++) {
+    (*animations[i])(leds, NUM_LEDS);
+  }
 }
