@@ -3,7 +3,8 @@
 
 #define DEBUG
 
-#include "blockify.h"
+#include "rainbow.h"
+#include "stripes.h"
 #include "fill.h"
 
 #define BRIGHTNESS_STEPS 5
@@ -71,7 +72,8 @@ typedef void (*Animation)(CRGB*, int);
 Animation animations[] = {
   &FillAnimation,
   &CenterFillAnimation,
-  //&BlockifyAnimation
+  &StripesAnimation,
+  &RainbowAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 
