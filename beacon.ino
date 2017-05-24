@@ -68,9 +68,11 @@ void setup() {
 }
 
 typedef void (*Animation)(CRGB*, int);
-Animation animaions[] = {&FillAnimation,
-                         &CenterFillAnimation,
-                         &BlockifyAnimation}
+Animation animations[] = {
+  &FillAnimation,
+  &CenterFillAnimation,
+  //&BlockifyAnimation
+};
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 
 void loop() {
