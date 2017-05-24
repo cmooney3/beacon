@@ -63,7 +63,7 @@ void CenterFillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1
   FastLED.delay(FRAME_DELAY_MS);
 }
 
-void FillAnimation(CRGB *leds, int num_leds, bool center_fill) {
+void GenericFillAnimation(CRGB *leds, int num_leds, bool center_fill) {
   CRGB c1, c2;
   fillRandomContrastingColors(c1, c2);
 
@@ -92,12 +92,12 @@ void FillAnimation(CRGB *leds, int num_leds, bool center_fill) {
 
 void FillAnimation(CRGB *leds, int num_leds) {
   LOG("Running Fill...");
-  FillAnimation(leds, num_leds, false);
+  GenericFillAnimation(leds, num_leds, false);
 }
 
 void CenterFillAnimation(CRGB *leds, int num_leds) {
   LOG("Running CenterFill...");
-  FillAnimation(leds, num_leds, true);
+  GenericFillAnimation(leds, num_leds, true);
 }
 
 #endif // FILL_H
