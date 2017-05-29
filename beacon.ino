@@ -5,6 +5,7 @@
 
 #include "blockify.h"
 #include "fill.h"
+#include "pulse.h"
 #include "rainbow.h"
 #include "static.h"
 
@@ -72,10 +73,11 @@ void setup() {
 typedef void (*Animation)(CRGB*, int);
 Animation animations[] = {
   &Blockify::BlockifyAnimation,
-  &Fill::FillAnimation,
-  &Fill::CenterFillAnimation,
   &Rainbow::RainbowAnimation,
+  &Fill::FillAnimation,
   &Static::StaticAnimation,
+  &Fill::CenterFillAnimation,
+  &Pulse::PulseAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 
