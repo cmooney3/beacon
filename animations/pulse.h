@@ -1,5 +1,5 @@
-#ifndef STROBE_H
-#define STROBE_H
+#ifndef PULSE_H
+#define PULSE_H
 
 #include <FastLED.h>
 #include "util.h"
@@ -28,21 +28,6 @@ void SinglePulse(CRGB *leds, int num_leds, CRGB c1, CRGB c2,
   }
 }
 
-//void PulseAnimation_Aux(PixelWrapper *px, uint32_t c1, uint32_t c2,
-//                        uint8_t interpulse_delay_ms, uint8_t interframe_delay_ms) {
-//   for (uint8_t i = 0; i < kNumPulses; i++) {
-//    SinglePulse(px, c1, c2, interframe_delay_ms);
-//    delay(interpulse_delay_ms);
-//    SinglePulse(px, c1, c2, interframe_delay_ms);
-//    delay(interpulse_delay_ms);
-//  }
-//}
-//
-//void PulseAnimation(PixelWrapper *px) {
-//  PulseAnimation_Aux(px, randomColor(px), randomColor(px),
-//                     random(50, 150), random(3, 15));
-//}
-//
 void PulseAnimation(CRGB *leds, int num_leds) {
   LOG("Running Pulse...");
   CRGB c1, c2;
@@ -65,4 +50,4 @@ void PulseAnimation(CRGB *leds, int num_leds) {
 
 };
 
-#endif // STROBE_H
+#endif // PULSE_H
