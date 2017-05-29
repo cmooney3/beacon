@@ -9,6 +9,7 @@
 #include "animations/pulse.h"
 #include "animations/rainbow.h"
 #include "animations/static.h"
+#include "animations/stripes.h"
 #include "animations/tracer.h"
 
 #define BRIGHTNESS_STEPS 5
@@ -82,6 +83,7 @@ Animation animations[] = {
   &Fill::CenterFillAnimation,
   &Pulse::PulseAnimation,
   &Tracer::TracerAnimation,
+  &Stripes::StripesAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 
