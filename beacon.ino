@@ -9,6 +9,7 @@
 #include "animations/pulse.h"
 #include "animations/rainbow.h"
 #include "animations/static.h"
+#include "animations/tracer.h"
 
 #define BRIGHTNESS_STEPS 5
 #define MAX_BRIGHTNESS 255
@@ -27,7 +28,7 @@ CRGB leds[NUM_LEDS];
 // onboard button.
 int brightnesses[] = {7, 20, 35, 60, 80, 120, 255};
 int num_brightnesses = sizeof(brightnesses) / sizeof(brightnesses[0]);
-int brightness = num_brightnesses / 2;
+int brightness = 0;
 int last_button_position = false;
 
 // This function will be called periodically to update the button state and
@@ -80,6 +81,7 @@ Animation animations[] = {
   &Static::StaticAnimation,
   &Fill::CenterFillAnimation,
   &Pulse::PulseAnimation,
+  &Tracer::TracerAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 
