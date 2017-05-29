@@ -81,7 +81,6 @@ void GenericFillAnimation(CRGB *leds, int num_leds, bool center_fill) {
   LOG("\tnum_fills = %d", num_fills);  
   
   for (int i = 0; i < num_fills; i++) {
-    LOG("\tFill #%d", i);
     if (center_fill) {
       // Note: We use a 1/2 segment size for Centerfill since it fills in
       // two directions at once, resulting in the animation completing 2x

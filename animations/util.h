@@ -2,7 +2,7 @@
 #define UTIL_H
 
 #ifdef DEBUG
-  char buf[256];
+  char buf[128];
   #define LOG(...) {sprintf(buf, __VA_ARGS__); Serial.println(buf);}
 #else
   #define LOG(...) {}
