@@ -4,15 +4,17 @@
 #include <FastLED.h>
 #include "util.h"
 
-#define MIN_FILLS 3
-#define MAX_FILLS 7
-#define MIN_SEGMENT_SIZE 2
-#define MAX_SEGMENT_SIZE 10
-#define FRAME_DELAY_MS 1
+namespace Fill {
 
-void FillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1, CRGB c2) {
+constexpr int kMinFills = 3;
+constexpr int kMaxFills = 7;
+constexpr int kMinSegmentSize = 2;
+constexpr int kMaxSegmentSize = 10;
+constexpr int kFrameDelayMS = 2;
+
+void FillAnimation_Aux(CRGB *leds, int num_leds, int segment_size,
+                       CRGB c1, CRGB c2) {
   int i;
-
   for (i = 0; i < num_leds; i++) {
     leds[i] = c1;
   }
@@ -21,7 +23,7 @@ void FillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1, CRGB
     leds[i] = c2;
     if (i % segment_size == 0 || i == num_leds - 1) {
       FastLED.show();
-      FastLED.delay(FRAME_DELAY_MS);
+      FastLED.delay(kFrameDelayMS);
     }
   }
 
@@ -29,12 +31,13 @@ void FillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1, CRGB
     leds[i] = c1;
     if (i % segment_size == 0 || i == num_leds - 1) {
       FastLED.show();
-      FastLED.delay(FRAME_DELAY_MS);
+      FastLED.delay(kFrameDelayMS);
     }
   }
 }
 
-void CenterFillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1, CRGB c2) {
+void CenterFillAnimation_Aux(CRGB *leds, int num_leds, int segment_size,
+                             CRGB c1, CRGB c2) {
   int i, j;
   int center = num_leds / 2;
 
@@ -43,24 +46,24 @@ void CenterFillAnimation_Aux(CRGB *leds, int num_leds, int segment_size, CRGB c1
       leds[j] = (abs(center - j) <= i) ? c1 : c2;
     }
     FastLED.show();
-    FastLED.delay(FRAME_DELAY_MS);
+    FastLED.delay(kFrameDelayMS);
   }
 
   fill_solid(leds, num_leds, c1);
   FastLED.show();
-  FastLED.delay(FRAME_DELAY_MS);
+  FastLED.delay(kFrameDelayMS);
 
   for (i = center - 1; i >= 0; i -= segment_size) {
     for (j = 0; j < num_leds; j++) {
       leds[j] = (abs(center - j) <= i) ? c1 : c2;
     }
     FastLED.show();
-    FastLED.delay(FRAME_DELAY_MS);
+    FastLED.delay(kFrameDelayMS);
   }
 
   fill_solid(leds, num_leds, c2);
   FastLED.show();
-  FastLED.delay(FRAME_DELAY_MS);
+  FastLED.delay(kFrameDelayMS);
 }
 
 void GenericFillAnimation(CRGB *leds, int num_leds, bool center_fill) {
@@ -70,11 +73,11 @@ void GenericFillAnimation(CRGB *leds, int num_leds, bool center_fill) {
   // Selecting the number of segments to fill at once.  This effectively
   // changes the speed of the fill.  The framerate is too low to do one at
   // a time.
-  int segment_size = random(MIN_SEGMENT_SIZE, MAX_SEGMENT_SIZE);
+  int segment_size = random(kMinSegmentSize, kMaxSegmentSize);
   LOG("\tsegment_size = %d", segment_size);
 
   // Select a random number of animation loops to complete
-  int num_fills = random(MIN_FILLS, MAX_FILLS);
+  int num_fills = random(kMinFills, kMaxFills);
   LOG("\tnum_fills = %d", num_fills);  
   
   for (int i = 0; i < num_fills; i++) {
@@ -99,5 +102,7 @@ void CenterFillAnimation(CRGB *leds, int num_leds) {
   LOG("Running CenterFill...");
   GenericFillAnimation(leds, num_leds, true);
 }
+
+};
 
 #endif // FILL_H

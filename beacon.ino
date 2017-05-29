@@ -3,9 +3,9 @@
 
 #define DEBUG
 
-#include "rainbow.h"
-#include "stripes.h"
 #include "fill.h"
+#include "rainbow.h"
+#include "static.h"
 
 #define BRIGHTNESS_STEPS 5
 #define MAX_BRIGHTNESS 255
@@ -70,10 +70,10 @@ void setup() {
 
 typedef void (*Animation)(CRGB*, int);
 Animation animations[] = {
-  &FillAnimation,
-  &CenterFillAnimation,
-  &StripesAnimation,
-  &RainbowAnimation,
+  &Fill::FillAnimation,
+  &Fill::CenterFillAnimation,
+  &Rainbow::RainbowAnimation,
+  &Static::StaticAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 

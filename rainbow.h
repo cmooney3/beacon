@@ -4,42 +4,47 @@
 #include <FastLED.h>
 #include "util.h"
 
-#define MIN_HUE_STEP 2
-#define MAX_HUE_STEP 20
+namespace Rainbow {
 
-#define MIN_FRAME_HUE_STEP 3
-#define MAX_FRAME_HUE_STEP 10
+constexpr int kMinHueStep = 2;
+constexpr int kMaxHueStep = 20;
 
-#define MIN_FRAMES 200
-#define MAX_FRAMES 1000
+constexpr int kMinFrameHueStep = 3;
+constexpr int kMaxFrameHueStep = 10;
 
-#define FRAME_DELAY_MS 2
+constexpr int kMinFrames = 200;
+constexpr int kMaxFrames = 1000;
 
-void RainbowAnimation(CRGB *leds, int num_leds, bool center_fill) {
+constexpr int kFrameDelayMS = 2;
+
+void RainbowAnimation(CRGB *leds, int num_leds) {
   LOG("Running Rainbow...");
   
   int start_hue = random(255);
   LOG("\tstart_hue = %d", start_hue);
 
-  // This value sets how much the hue steps ahead for each pixel, effectively controlling
-  // how wide the rainbow pattern is.
-  int hue_step = random(MIN_HUE_STEP, MAX_HUE_STEP);
+  // This value sets how much the hue steps ahead for each pixel, effectively
+  // controlling how wide the rainbow pattern is.
+  int hue_step = random(kMinHueStep, kMaxHueStep);
   LOG("\thue_step = %d", hue_step);
 
-  // This value sets how much the hue steps ahead on each frame, effectively controlling
-  // how quickly the rainbow slides past.
-  int frame_hue_step = random(MIN_FRAME_HUE_STEP, MAX_FRAME_HUE_STEP);
+  // This value sets how much the hue steps ahead on each frame, effectively
+  // controlling how quickly the rainbow slides past.
+  int frame_hue_step = random(kMinFrameHueStep, kMaxFrameHueStep);
   LOG("\tframe_hue_step = %d", frame_hue_step);
 
-  int num_frames = random(MIN_FRAMES, MAX_FRAMES);
+  int num_frames = random(kMinFrames, kMaxFrames);
   LOG("\tnum_frames = %d\t(~%dms)",
-      num_frames, (num_frames * FRAME_DELAY_MS));
+      num_frames, (num_frames * kFrameDelayMS));
 
   for (int i = 0; i < num_frames; i++) {
-    fill_rainbow(leds, num_leds, (start_hue + i * frame_hue_step) % 255, hue_step);
+    fill_rainbow(leds, num_leds,
+                 (start_hue + i * frame_hue_step) % 255, hue_step);
     FastLED.show();
-    FastLED.delay(FRAME_DELAY_MS);
+    FastLED.delay(kFrameDelayMS);
   }
 }
+
+};
 
 #endif // RAINBOW_H
