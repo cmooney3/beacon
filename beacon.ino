@@ -4,6 +4,7 @@
 #define DEBUG
 
 #include "animations/blockify.h"
+#include "animations/drop.h"
 #include "animations/fill.h"
 #include "animations/pulse.h"
 #include "animations/rainbow.h"
@@ -72,6 +73,7 @@ void setup() {
 
 typedef void (*Animation)(CRGB*, int);
 Animation animations[] = {
+  &Drop::DropAnimation,
   &Blockify::BlockifyAnimation,
   &Rainbow::RainbowAnimation,
   &Fill::FillAnimation,
