@@ -3,11 +3,11 @@
 
 #define DEBUG
 
-#include "blockify.h"
-#include "fill.h"
-#include "pulse.h"
-#include "rainbow.h"
-#include "static.h"
+#include "animations/blockify.h"
+#include "animations/fill.h"
+#include "animations/pulse.h"
+#include "animations/rainbow.h"
+#include "animations/static.h"
 
 #define BRIGHTNESS_STEPS 5
 #define MAX_BRIGHTNESS 255
