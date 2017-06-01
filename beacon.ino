@@ -72,7 +72,7 @@ Animation animations[] = {
   &Blockify::BlockifyAnimation,
   &Rainbow::RainbowAnimation,
   //&Fill::FillAnimation,
-  //&Static::StaticAnimation,
+  &Static::StaticAnimation,
   //&Fill::CenterFillAnimation,
   //&Pulse::PulseAnimation,
   //&Tracer::TracerAnimation,
