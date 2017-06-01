@@ -38,4 +38,10 @@ void setBallTopBottomColors(CRGB *leds, int num_leds, CRGB top, CRGB bottom) {
   }
 }
 
+void setBallColor(CRGB *leds, int num_leds, CRGB c) {
+  for (int j = 0; j < num_leds; j++) {
+    leds[j] = c;
+  }
+}
+
 #endif // UTIL_H

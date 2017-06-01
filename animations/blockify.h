@@ -24,9 +24,9 @@ void BlockifyAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds) {
     for (uint16_t j = 0; j < num_pole_leds; j++) {
       leds[j] = (int)(j / block_size + i) % 2 ? pole_c1 : pole_c2;
     }
-    for (uint16_t j = 0; j < num_ball_leds; j++) {
-      leds[num_pole_leds + j] = (i % 2 == 0) ? ball_c1 : ball_c2;
-    }
+
+    setBallColor(leds + num_pole_leds, num_ball_leds,
+                 (i % 2 == 0) ? ball_c1 : ball_c2);
 
     FastLED.show();
     FastLED.delay(kFrameDelayMS);

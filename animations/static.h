@@ -38,9 +38,7 @@ void StaticAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds) {
       perc = 255;
       dir *= -1;
     }
-    for (int j = 0; j < num_ball_leds; j++) {
-      leds[num_pole_leds + j] = ball_color;
-    }
+    setBallColor(leds + num_pole_leds, num_ball_leds, ball_color);
 
     FastLED.show();
     FastLED.delay(kFrameDelayMS);
