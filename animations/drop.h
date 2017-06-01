@@ -18,46 +18,58 @@ constexpr int kMaxFills = 4;
 constexpr int kFrameDelayMS = 60;
 
 void DropAux(CRGB *leds, int num_pole_leds, int num_ball_leds,
-             int fill_level, CRGB c1, CRGB c2, int speed, int segment_size) {
+             int num_dropped, CRGB pole_c1, CRGB pole_c2, CRGB ball_c,
+             int speed, int segment_size) {
+  int fill_level = num_dropped * segment_size;
   int distance = num_pole_leds - fill_level;
   for (int pos = 0; pos <= distance; pos += speed) {
     for (int j = 0; j < fill_level; j++) {
-      leds[j] = c1;
+      leds[j] = pole_c1;
     }
-
     for (int j = 0; j < distance; j++) {
-      leds[fill_level + j] = c2;
+      leds[fill_level + j] = pole_c2;
     }
-
     for (int j = 0; j < segment_size && j < pos ; j++) {
-      leds[num_pole_leds - pos + j] = c1;
+      leds[num_pole_leds - pos + j] = pole_c1;
     }
 
+    // Fill in the ball's color
+    for (int i = 0; i < num_ball_leds; i++) {
+      leds[num_pole_leds + 1 + i] = ball_c;
+    }
     FastLED.show();
     FastLED.delay(kFrameDelayMS);
   }
 }
 
-void Drop(CRGB *leds, int num_pole_leds, int num_ball_leds, CRGB c1, CRGB c2,
+void Drop(CRGB *leds, int num_pole_leds, int num_ball_leds,
+          CRGB pole_c1, CRGB pole_c2,
+          CRGB ball_c1, CRGB ball_c2,
           int segment_size, int speed) {
-  int fill_level = 0;
-  while (fill_level < num_pole_leds) {
+  int num_dropped = 0;
+  while (num_dropped * segment_size < num_pole_leds) {
     DropAux(leds, num_pole_leds, num_ball_leds,
-            fill_level, c1, c2, speed, segment_size);
-    fill_level += segment_size;
+            num_dropped, pole_c1, pole_c2,
+            (num_dropped % 2 == 0 ) ? ball_c1 : ball_c2,
+            speed, segment_size);
+    num_dropped++;
   }
 }
 
 void DropAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds) {
-  CRGB c1, c2;
-  fillRandomContrastingColors(c1, c2);
+  CRGB pole_c1, pole_c2;
+  fillRandomContrastingColors(pole_c1, pole_c2);
+  CRGB ball_c1, ball_c2;
+  fillRandomContrastingColors(ball_c1, ball_c2);
   int segment_size = random(kMinSegmentSize, kMaxSegmentSize);
   int speed = random(kMinSpeed, kMaxSpeed);
   int num_fills = random(kMinFills, kMaxFills);
 
   for (int i = 0; i < num_fills; i++) {
-    Drop(leds, num_pole_leds, num_ball_leds, c1, c2, segment_size, speed);
-    Drop(leds, num_pole_leds, num_ball_leds, c2, c1, segment_size, speed);
+    Drop(leds, num_pole_leds, num_ball_leds,
+         pole_c1, pole_c2, ball_c1, ball_c2, segment_size, speed);
+    Drop(leds, num_pole_leds, num_ball_leds,
+         pole_c2, pole_c1, ball_c2, ball_c1, segment_size, speed);
   }
 }
 
