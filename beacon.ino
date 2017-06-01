@@ -20,7 +20,9 @@
 #define POWER_ON_DELAY_MS 1000
 
 #define LED_PIN 7
-#define NUM_LEDS (32 * 5)
+#define NUM_POLE_LEDS (30 * 5)
+#define NUM_BALL_LEDS (8 * 3)
+#define NUM_LEDS (NUM_POLE_LEDS + NUM_BALL_LEDS)
 #define CHIPSET     WS2811
 #define COLOR_ORDER GRB
 CRGB leds[NUM_LEDS];
@@ -73,7 +75,7 @@ void setup() {
   FastLED.setBrightness(brightnesses[brightness]);
 }
 
-typedef void (*Animation)(CRGB*, int);
+typedef void (*Animation)(CRGB*, int, int);
 Animation animations[] = {
   &Drop::DropAnimation,
   &Blockify::BlockifyAnimation,
@@ -89,6 +91,6 @@ int num_animations = sizeof(animations) / sizeof(animations[0]);
 
 void loop() {
   for (int i = 0; i < num_animations; i++) {
-    (*animations[i])(leds, NUM_LEDS);
+    (*animations[i])(leds, NUM_POLE_LEDS, NUM_BALL_LEDS);
   }
 }

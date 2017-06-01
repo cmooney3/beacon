@@ -17,28 +17,20 @@ constexpr int kMaxSpeed = 4;
 
 constexpr int kFrameDelayMS = 50;
 
-void StripesAnimation(CRGB *leds, int num_leds) {
-  LOG("Running Static...");
+void StripesAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds) {
   CRGB c1, c2;
   fillRandomContrastingColors(c1, c2);
-
   int num_stripes = random(kMinNumStripes, kMaxNumStripes);
-  int stripe_size = num_leds / num_stripes;
-  LOG("\tnum_stripes = %d", num_stripes);
-
+  int stripe_size = num_pole_leds / num_stripes;
   int num_sweeps = random(kMinSweeps, kMaxSweeps);
-  LOG("\tnum_sweeps = %d", num_sweeps);
-
   int dir = random(0, 2) ? 1 : -1;
-  LOG("\tdir = %d", dir);
-
   int speed = random(kMinSpeed, kMaxSpeed);
-  LOG("\tspeed = %d", speed);
 
   for (int sweep = 0; sweep < num_sweeps; sweep++) {
-    for (int offset = 128; offset < 128 + num_leds && offset > 128 - num_leds;
+    for (int offset = 128;
+         offset < 128 + num_pole_leds && offset > 128 - num_pole_leds;
          offset += dir * speed) {
-      for(int j = 0; j < num_leds; j++) {
+      for(int j = 0; j < num_pole_leds; j++) {
         leds[j] = (((j + offset) / stripe_size) % 2 == 0) ? c1 : c2;
       }
       FastLED.show();
