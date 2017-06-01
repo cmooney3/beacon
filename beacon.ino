@@ -70,7 +70,7 @@ typedef void (*Animation)(CRGB*, int, int);
 Animation animations[] = {
   &Drop::DropAnimation,
   &Blockify::BlockifyAnimation,
-  //&Rainbow::RainbowAnimation,
+  &Rainbow::RainbowAnimation,
   //&Fill::FillAnimation,
   //&Static::StaticAnimation,
   //&Fill::CenterFillAnimation,
