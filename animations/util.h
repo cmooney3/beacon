@@ -25,4 +25,17 @@ void fillRandomContrastingColors(CRGB &c1, CRGB &c2) {
   c2 = CHSV(h2, SATURATION, VALUE);
 }
 
+#define LEDS_PER_STICK 8
+void setBallTopBottomColors(CRGB *leds, int num_leds, CRGB top, CRGB bottom) {
+  for (int j = 0; j < LEDS_PER_STICK; j++) {
+    leds[j] = (j < LEDS_PER_STICK / 2) ? bottom : top; 
+  }
+  for (int j = LEDS_PER_STICK; j < LEDS_PER_STICK * 2; j++) {
+    leds[j] = (j < LEDS_PER_STICK * 3 / 2) ? top : bottom; 
+  }
+  for (int j = LEDS_PER_STICK * 2; j < LEDS_PER_STICK * 3; j++) {
+    leds[j] = (j < LEDS_PER_STICK * 5 / 2) ? bottom : top; 
+  }
+}
+
 #endif // UTIL_H

@@ -74,7 +74,7 @@ Animation animations[] = {
   //&Fill::FillAnimation,
   &Static::StaticAnimation,
   //&Fill::CenterFillAnimation,
-  //&Pulse::PulseAnimation,
+  &Pulse::PulseAnimation,
   //&Tracer::TracerAnimation,
   //&Stripes::StripesAnimation,
 };
