@@ -48,29 +48,20 @@ void updateBrightness() {
 void setup() {
 #ifdef DEBUG
   Serial.begin(9600);
-  LOG("Serial configured.");
 #endif
 
   // Read from an unused analog input to get a "random" seed for the rng
-  LOG("Seeding random number generator...");
-  int seed = analogRead(UNUSED_ANALOG_INPUT);
-  LOG("Seed = %d", seed);
-  randomSeed(seed);
+  randomSeed(analogRead(UNUSED_ANALOG_INPUT));
 
   // Set up the brightness button as an input
-  LOG("Configuring button's pin as an input w/ pullup resistor...");
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 
   // Set up timer to run the brightness button checks periodically
-  LOG("Configuring Timer1 to poll the button state...");
   Timer1.initialize(100000);  // Period in Microseconds = 0.1 seconds
   Timer1.attachInterrupt(updateBrightness);
   
-
   // Initialize the LED strip
-  LOG("Delaying briefly for LED power-on safety...");
   delay(POWER_ON_DELAY_MS);
-  LOG("Initializing %d LEDs on pin %d...", NUM_LEDS, LED_PIN);
   FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalSMD5050);
   FastLED.setBrightness(brightnesses[brightness]);
 }
@@ -79,13 +70,13 @@ typedef void (*Animation)(CRGB*, int, int);
 Animation animations[] = {
   &Drop::DropAnimation,
   &Blockify::BlockifyAnimation,
-  &Rainbow::RainbowAnimation,
-  &Fill::FillAnimation,
-  &Static::StaticAnimation,
-  &Fill::CenterFillAnimation,
-  &Pulse::PulseAnimation,
-  &Tracer::TracerAnimation,
-  &Stripes::StripesAnimation,
+  //&Rainbow::RainbowAnimation,
+  //&Fill::FillAnimation,
+  //&Static::StaticAnimation,
+  //&Fill::CenterFillAnimation,
+  //&Pulse::PulseAnimation,
+  //&Tracer::TracerAnimation,
+  //&Stripes::StripesAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 

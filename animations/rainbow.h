@@ -30,6 +30,9 @@ void RainbowAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds) {
   for (int i = 0; i < num_frames; i++) {
     fill_rainbow(leds, num_pole_leds,
                  (start_hue + i * frame_hue_step) % 255, hue_step);
+    for (int j = 0; j < num_pole_leds; j++) {
+      leds[num_pole_leds + 1 + j] = leds[num_pole_leds];
+    }
     FastLED.show();
     FastLED.delay(kFrameDelayMS);
   }

@@ -35,7 +35,7 @@ void DropAux(CRGB *leds, int num_pole_leds, int num_ball_leds,
 
     // Fill in the ball's color
     for (int i = 0; i < num_ball_leds; i++) {
-      leds[num_pole_leds + 1 + i] = ball_c;
+      leds[num_pole_leds + i] = ball_c;
     }
     FastLED.show();
     FastLED.delay(kFrameDelayMS);
