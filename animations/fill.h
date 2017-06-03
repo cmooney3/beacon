@@ -75,13 +75,12 @@ void GenericFillAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds,
   // changes the speed of the fill.  The framerate is too low to do one at
   // a time.
   int segment_size = random(kMinSegmentSize, kMaxSegmentSize);
-  LOG("\tsegment_size = %d", segment_size);
 
   // Select a random number of animation loops to complete
   int num_fills = random(kMinFills, kMaxFills);
-  LOG("\tnum_fills = %d", num_fills);  
   
   for (int i = 0; i < num_fills; i++) {
+    setBallColor(leds + num_pole_leds, num_ball_leds, randomColor());
     if (center_fill) {
       // Note: We use a 1/2 segment size for Centerfill since it fills in
       // two directions at once, resulting in the animation completing 2x

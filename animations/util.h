@@ -44,4 +44,16 @@ void setBallColor(CRGB *leds, int num_leds, CRGB c) {
   }
 }
 
+void setBallSidesColor(CRGB *leds, int num_leds, CRGB c1, CRGB c2, CRGB c3) {
+  for (int j = 0; j < LEDS_PER_STICK; j++) {
+    leds[j] = c1;
+  }
+  for (int j = LEDS_PER_STICK; j < LEDS_PER_STICK * 2; j++) {
+    leds[j] = c2;
+  }
+  for (int j = LEDS_PER_STICK * 2; j < LEDS_PER_STICK * 3; j++) {
+    leds[j] = c3;
+  }
+}
+
 #endif // UTIL_H

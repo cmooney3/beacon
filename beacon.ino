@@ -31,7 +31,7 @@ CRGB leds[NUM_LEDS];
 // onboard button.
 int brightnesses[] = {7, 20, 35, 60, 80, 120, 255};
 int num_brightnesses = sizeof(brightnesses) / sizeof(brightnesses[0]);
-int brightness = 0;
+int brightness = num_brightnesses / 2;
 int last_button_position = false;
 
 // This function will be called periodically to update the button state and
@@ -68,13 +68,14 @@ void setup() {
 
 typedef void (*Animation)(CRGB*, int, int);
 Animation animations[] = {
-  &Drop::DropAnimation,
-  &Blockify::BlockifyAnimation,
-  &Rainbow::RainbowAnimation,
+  //&Drop::DropAnimation,
+  //&Blockify::BlockifyAnimation,
+  //&Rainbow::RainbowAnimation,
   //&Fill::FillAnimation,
-  &Static::StaticAnimation,
-  //&Fill::CenterFillAnimation,
-  &Pulse::PulseAnimation,
+  //&Static::StaticAnimation,
+  &Fill::CenterFillAnimation,
+  //&Pulse::PulseAnimation,
+
   //&Tracer::TracerAnimation,
   //&Stripes::StripesAnimation,
 };
