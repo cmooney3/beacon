@@ -18,8 +18,11 @@ constexpr int kMaxSpeed = 4;
 constexpr int kFrameDelayMS = 50;
 
 void StripesAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds) {
-  CRGB c1, c2;
-  fillRandomContrastingColors(c1, c2);
+  CRGB pole_c1, pole_c2;
+  fillRandomContrastingColors(pole_c1, pole_c2);
+  CRGB ball_c1, ball_c2;
+  fillRandomContrastingColors(ball_c1, ball_c2);
+
   int num_stripes = random(kMinNumStripes, kMaxNumStripes);
   int stripe_size = num_pole_leds / num_stripes;
   int num_sweeps = random(kMinSweeps, kMaxSweeps);
@@ -31,8 +34,12 @@ void StripesAnimation(CRGB *leds, int num_pole_leds, int num_ball_leds) {
          offset < 128 + num_pole_leds && offset > 128 - num_pole_leds;
          offset += dir * speed) {
       for(int j = 0; j < num_pole_leds; j++) {
-        leds[j] = (((j + offset) / stripe_size) % 2 == 0) ? c1 : c2;
+        leds[j] = (((j + offset) / stripe_size) % 2 == 0) ? pole_c1 : pole_c2;
       }
+      CRGB ball_top = ((offset / stripe_size) % 2 == 0) ? ball_c1 : ball_c2;
+      CRGB ball_bottom = ((offset / stripe_size) % 2 == 0) ? ball_c2 : ball_c1;
+      setBallTopBottomColors(leds + num_pole_leds, num_ball_leds,
+                             ball_top, ball_bottom);
       FastLED.show();
       FastLED.delay(kFrameDelayMS);
     }

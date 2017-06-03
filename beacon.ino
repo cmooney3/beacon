@@ -76,7 +76,7 @@ Animation animations[] = {
   &Fill::CenterFillAnimation,
   &Pulse::PulseAnimation,
   &Tracer::TracerAnimation,
-  //&Stripes::StripesAnimation,
+  &Stripes::StripesAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 
