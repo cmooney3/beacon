@@ -11,6 +11,7 @@
 #include "animations/static.h"
 #include "animations/stripes.h"
 #include "animations/tracer.h"
+#include "animations/fade.h"
 
 #define BRIGHTNESS_STEPS 5
 #define MAX_BRIGHTNESS 255
@@ -77,6 +78,7 @@ Animation animations[] = {
   &Pulse::PulseAnimation,
   &Tracer::TracerAnimation,
   &Stripes::StripesAnimation,
+  &Fade::FadeAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
 
