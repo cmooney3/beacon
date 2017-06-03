@@ -68,15 +68,14 @@ void setup() {
 
 typedef void (*Animation)(CRGB*, int, int);
 Animation animations[] = {
-  //&Drop::DropAnimation,
-  //&Blockify::BlockifyAnimation,
-  //&Rainbow::RainbowAnimation,
-  //&Fill::FillAnimation,
-  //&Static::StaticAnimation,
+  &Drop::DropAnimation,
+  &Blockify::BlockifyAnimation,
+  &Rainbow::RainbowAnimation,
+  &Fill::FillAnimation,
+  &Static::StaticAnimation,
   &Fill::CenterFillAnimation,
-  //&Pulse::PulseAnimation,
-
-  //&Tracer::TracerAnimation,
+  &Pulse::PulseAnimation,
+  &Tracer::TracerAnimation,
   //&Stripes::StripesAnimation,
 };
 int num_animations = sizeof(animations) / sizeof(animations[0]);
